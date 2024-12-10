@@ -6,10 +6,106 @@
     <title>Document</title>
     <style>
       /* write CSS here */
+      body {
+        font-family: sans-serif "Courier New", Courier, monospace;
+        position: relative;
+        height: 90vh;
+        width: 90vw;
+        background-color: aliceblue;
+      }
+      .tabs {
+        background-color: #fff;
+        width: 70vw;
+        height: 50vh;
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+      }
+      .nav {
+        padding: 1rem 0;
+        border-bottom: 1px solid #ddd;
+      }
+      a {
+        font-size: 1.4rem;
+        color: #777;
+        font-weight: 500;
+        margin: 1.4rem;
+        padding: 0 1rem;
+        text-decoration: none;
+      }
+      .focus {
+        color: rgb(68, 68, 242);
+        border-bottom: 3px solid rgb(68, 68, 242);
+        padding-bottom: 1rem;
+        z-index: 999;
+      }
+      span {
+        font-weight: 600;
+        color: #333;
+      }
+      p {
+        padding: 2rem 3rem;
+        color: #888;
+        line-height: 1.5;
+        font-size: 1;
+      }
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <section class="tabs">
+      <div class="nav">
+        <a href="#" class="tab profile">Profile</a>
+        <a href="#" class="tab dashboard">Dashboard</a>
+        <a href="#" class="tab setting">Settings</a>
+        <a href="#" class="tab contact">Contacts</a>
+      </div>
+      <p class="tabcontant hidden">
+        This is some placeholder content the
+        <span>Profile tab's associated content.</span> another tab will toggle
+        the visibility of this one for the next. The tab JavaScript swaps
+        classes to control the content visibility and styling.
+      </p>
+      <p class="tabcontant hidden">
+        This is some placeholder content the
+        <span>Dashboard tab's associated content.</span> another tab will toggle
+        the visibility of this one for the next. The tab JavaScript swaps
+        classes to control the content visibility and styling.
+      </p>
+      <p class="tabcontant hidden">
+        This is some placeholder content the
+        <span>Settings tab's associated content.</span> another tab will toggle
+        the visibility of this one for the next. The tab JavaScript swaps
+        classes to control the content visibility and styling.
+      </p>
+      <p class="tabcontant hidden">
+        This is some placeholder content the
+        <span>Contacts tab's associated content.</span> another tab will toggle
+        the visibility of this one for the next. The tab JavaScript swaps
+        classes to control the content visibility and styling.
+      </p>
+    </section>
+  </body>
   <script>
     // write javascript here
+    const tab = document.querySelectorAll(".tab");
+    const tabcontant = document.querySelectorAll(".tabcontant");
+    let x = 0;
+    for (let i = 0; i < tab.length; i++) {
+      tab[i].addEventListener("click", function () {
+        abc(x);
+        tab[i].classList.add("focus");
+        tabcontant[i].classList.remove("hidden");
+        x = Number(i);
+      });
+    }
+    const abc = function(a){
+      tab[a].classList.remove("focus");
+      tabcontant[a].classList.add("hidden");
+      return 0;
+    }
   </script>
 </html>
