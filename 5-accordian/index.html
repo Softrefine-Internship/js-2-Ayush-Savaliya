@@ -6,10 +6,196 @@
     <title>Document</title>
     <style>
       /* write CSS here */
+      html {
+        font-size: 100%;
+      }
+      body {
+        font-family: sans-serif;
+        height: 90vh;
+        width: 90vw;
+        background-color: aliceblue;
+      }
+      .accordian {
+        background-color: #fff;
+        width: 70vw;
+        position: relative;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #bbb;
+        border-radius: 4px;
+      }
+      span {
+        font-weight: 600;
+        color: #111;
+      }
+      .item {
+        cursor: pointer;
+      }
+      .red {
+        color: red;
+        font-weight: 500;
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #bbb;
+        border-top: 1px solid #bbb;
+      }
+      .icon {
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 1rem;
+      }
+      p {
+        padding: 16px;
+        color: #111;
+        margin: 0;
+      }
+      .focus {
+        color: blue;
+      }
+      .focus-stroke {
+        stroke: blue;
+        transform: rotate(180deg);
+      }
+      .hidden {
+        display: none;
+      }
+      /* ************** */
+      @media (max-width: 540px) {
+        html {
+          font-size: 90%;
+        }
+        .accordian {
+          width: 90vw;
+        }
+      }
+      @media (max-width: 540px) {
+        html {
+          font-size: 85%;
+        }
+        .accordian {
+          width: 100vw;
+        }
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <section class="accordian">
+      <div class="item">
+        <div class="head">
+          <p class="head-p focus">Accordian Item #1</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+            class="icon focus-stroke"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </div>
+        <p class="text">
+          <span>This is the first item's accordion body.</span> It is shown by
+          default, until the collapse plugin adds the appropriate classes that
+          we use to style each element. These classes control the ocerall
+          apperaence as well as the showing and element. These classes control
+          the overall apperaence, as well as the showing and hiding via CSS
+          transitions. You can modify any of this with custom CSS
+          <span class="red">.accordian-body</span>, through the transition does
+          limit overflow.
+        </p>
+      </div>
+      <div class="item">
+        <div class="head">
+          <p class="head-p">Accordian Item #2</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+            class="icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </div>
+        <p class="text hidden">
+          <span>This is the second item's accordion body.</span> It is shown by
+          default, until the collapse plugin adds the appropriate classes that
+          we use to style each element. These classes control the ocerall
+          apperaence as well as the showing and element. These classes control
+          the overall apperaence, as well as the showing and hiding via CSS
+          transitions. You can modify any of this with custom CSS
+          <span class="red">.accordian-body</span>, through the transition does
+          limit overflow.
+        </p>
+      </div>
+      <div class="item">
+        <div class="head">
+          <p class="head-p">Accordian Item #3</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1"
+            stroke="currentColor"
+            class="icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </div>
+        <p class="text hidden">
+          <span>This is the third item's accordion body.</span> It is shown by
+          default, until the collapse plugin adds the appropriate classes that
+          we use to style each element. These classes control the ocerall
+          apperaence as well as the showing and element. These classes control
+          the overall apperaence, as well as the showing and hiding via CSS
+          transitions. You can modify any of this with custom CSS
+          <span class="red">.accordian-body</span>, through the transition does
+          limit overflow.
+        </p>
+      </div>
+    </section>
+  </body>
   <script>
     // write javascript here
+    const items = document.querySelectorAll(".item");
+    const heads = document.querySelectorAll(".head-p");
+    const icons = document.querySelectorAll(".icon");
+    const texts = document.querySelectorAll(".text");
+    let x = 0;
+    for (let i = 0; i < items.length; i++) {
+      items[i].addEventListener("click", function () {
+        closeAccordian(x);
+        heads[i].classList.add("focus");
+        icons[i].classList.add("focus-stroke");
+        texts[i].classList.remove("hidden");
+        x = Number(i);
+      });
+    }
+
+    const closeAccordian = function (a) {
+      heads[a].classList.remove("focus");
+      icons[a].classList.remove("focus-stroke");
+      texts[a].classList.add("hidden");
+      return 0;
+    };
   </script>
 </html>

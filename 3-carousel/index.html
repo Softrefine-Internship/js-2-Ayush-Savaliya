@@ -6,10 +6,171 @@
     <title>Document</title>
     <style>
       /* write CSS here */
+      body {
+        font-family: sans-serif ;
+        height: 90vh;
+        width: 90vw;
+        background-color: aliceblue;
+      }
+      .carousel {
+        background-color: #fff;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* //////////////// */
+      .btn{
+        background-color: #333;
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 24px rgb(0, 0, 0, 0.1);
+        cursor: pointer;
+        border: 3px solid #fff;
+      }
+      .btn-icon {
+        height: 24px;
+        width: 24px;
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+      .btn--l {
+        left: 5%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .btn--r {
+        right: 5%;
+        top: 50%;
+        transform: translate(50%, -50%);
+      }
+      .dots {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 5%;
+        display: flex;
+        gap: 12px;
+      }
+      .dot {
+        height: 12px;
+        width: 12px;
+        background-color: #888;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+      }
+      .dot--fill {
+        background-color: #fff;
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div class="carousel">
+      <img src="img1.png " alt="image-1" class="img"/>
+      <img src="img2.png " alt="image-2" class="hidden img" />
+      <img src="img3.png " alt="image-3" class="hidden img" />
+      <button class="btn btn--l">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </button>
+      <button class="btn btn--r">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </button>
+      <div class="dots">
+        <div class="dot dot--fill">&nbsp;</div>
+        <div class="dot">&nbsp;</div>
+        <div class="dot">&nbsp;</div>
+      </div>
+    </div>
+  </body>
   <script>
     // write javascript here
+    const dots = document.querySelectorAll('.dot');
+    const imgs = document.querySelectorAll('.img');
+    const btnL = document.querySelector('.btn--l');
+    const btnR = document.querySelector('.btn--r');
+    let i=0;
+      const showLeft = function(){
+        if(i==0){
+          console.log(i)
+          i=2;
+          imgs[0].classList.add('hidden'); 
+          dots[0].classList.remove('dot--fill');   
+          imgs[i].classList.remove('hidden');
+          dots[i].classList.add('dot--fill')
+        }else{
+          imgs[i].classList.add('hidden');
+          dots[i].classList.remove('dot--fill');
+          imgs[--i].classList.remove('hidden');
+          dots[i].classList.add('dot--fill')
+        }
+      } 
+      const showRight = function(){
+        if(i==2){
+          i=0;
+          imgs[2].classList.add('hidden');
+          dots[2].classList.remove('dot--fill');
+          imgs[i].classList.remove('hidden');
+          dots[i].classList.add('dot--fill')
+        }else{
+          imgs[i].classList.add('hidden');
+          dots[i].classList.remove('dot--fill');
+          imgs[++i].classList.remove('hidden');
+          dots[i].classList.add('dot--fill');
+        }
+      } 
+      btnL.addEventListener('click', showLeft);
+      btnR.addEventListener('click', showRight);
+
+      for(let j=0;j<dots.length;j++){
+        dots[j].addEventListener('click',function(){
+          imgs[i].classList.add('hidden');
+          dots[i].classList.remove('dot--fill');
+          i=Number(j);
+          imgs[i].classList.remove('hidden');
+          dots[i].classList.add('dot--fill');
+      });
+    }
   </script>
 </html>

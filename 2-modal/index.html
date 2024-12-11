@@ -6,7 +6,9 @@
     <title>Document</title>
     <style>
       /* write CSS here */
-
+      html {
+        font-size: 62.5%;
+      }
       body {
         font-family: sans-serif;
         color: #333;
@@ -42,13 +44,13 @@
         background: none;
       }
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
+      h2 {
+        font-size: 2.3rem;
+        margin: 1.5rem 0;
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.8rem;
         color: #6e7582;
       }
 
@@ -66,7 +68,7 @@
         width: 50%;
         border-radius: 1rem;
         background-color: white;
-        padding: 3rem 2rem;
+        padding: 5rem 2rem;
         box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
         z-index: 10;
       }
@@ -80,11 +82,17 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #848a96;
-        /* backdrop-filter: blur(3px); */
+        width: 99vw;
+        height: 98vh;
+        background-color: #b6c6e6;
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
         z-index: 5;
+      }
+      .svg-icon {
+        width: 6rem;
       }
       .btn {
         border-radius: 1rem;
@@ -105,14 +113,42 @@
         display: flex;
         justify-content: end;
         gap: 1rem;
+        margin-top: 2rem;
       }
       .icon {
         width: 2rem;
         height: 2rem;
         background-color: #da18183c;
-        padding: 0.8rem 1.2rem;
+        padding: 1.2rem;
         border-radius: 50%;
         margin-top: 1.2rem;
+      }
+      /* ************ */
+      @media (max-width: 950px) {
+        html {
+          font-size: 50%;
+        }
+      }
+      @media (max-width: 650px) {
+        html {
+          font-size: 48%;
+        }
+        .popUp {
+          width: 70%;
+        }
+      }
+      @media (max-width: 500px) {
+        html {
+          font-size: 48%;
+        }
+        .btns {
+          display: flex;
+          flex-direction: column;
+          justify-self: center;
+        }
+        .popUp {
+          width: 80%;
+        }
       }
     </style>
   </head>
@@ -121,20 +157,22 @@
 
     <div class="popUp hidden">
       <div class="flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="red"
-          class="icon"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-          />
-        </svg>
+        <div class="svg-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="red"
+            class="icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+            />
+          </svg>
+        </div>
 
         <div>
           <div>
@@ -178,8 +216,8 @@
     btnClosePopup.addEventListener("click", closepopup);
     overlay.addEventListener("click", closepopup);
     btnWhite.addEventListener("click", closepopup);
-    btnRed.addEventListener("click", function(){
-      alert("Account deactive successfully..!");
+    btnRed.addEventListener("click", function () {
+      alert("Account deactivated successfully..!");
       closepopup();
     });
 

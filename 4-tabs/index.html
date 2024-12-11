@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document </title>
+    <title>Document</title>
     <style>
       /* write CSS here */
+      
       body {
         font-family: sans-serif "Courier New", Courier, monospace;
         position: relative;
@@ -15,16 +16,16 @@
       }
       .tabs {
         background-color: #fff;
-        width: 70vw;
-        height: 50vh;
-        position: absolute;
-        top: 50%;
-        left: 55%;
-        transform: translate(-50%, -50%);
+        width: 99vw;
+        height: 95vh;
       }
       .nav {
         padding: 1rem 0;
         border-bottom: 1px solid #ddd;
+        margin-top: 1.8rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 4rem;
       }
       a {
         font-size: 1.4rem;
@@ -37,7 +38,7 @@
       .focus {
         color: rgb(68, 68, 242);
         border-bottom: 3px solid rgb(68, 68, 242);
-        padding-bottom: 1rem;
+        padding-bottom: 3.5rem;
         z-index: 999;
       }
       span {
@@ -52,6 +53,16 @@
       }
       .hidden {
         display: none;
+      }
+      /* ************** */
+      @media (max-width: 600px) {
+        .nav {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 4rem 4rem;
+        }
+        .focus {
+           border-bottom: none;
+        }
       }
     </style>
   </head>
@@ -102,10 +113,10 @@
         x = Number(i);
       });
     }
-    const abc = function(a){
+    const abc = function (a) {
       tab[a].classList.remove("focus");
       tabcontant[a].classList.add("hidden");
       return 0;
-    }
+    };
   </script>
 </html>

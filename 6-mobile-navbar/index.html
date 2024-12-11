@@ -6,10 +6,182 @@
     <title>Document</title>
     <style>
       /* write CSS here */
+      html{
+        font-size: 62.5%;
+      }
+      body {
+        font-family: sans-serif;
+        height: 90vh;
+        width: 93vw;
+        background-color: aliceblue;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fdf2e9;
+        height: 9.6rem;
+        padding: 0 4.3rem;
+        position: relative;
+        width: 100%;
+      }
+      .logo {
+        height: 2.4rem;
+      }
+      .main-nav-list,
+      .nav-list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 4.8rem;
+      }
+      .main-nav-link:link,
+      .main-nav-link:visited {
+        display: inline-block;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 1.8rem;
+        transition: all 0.3s;
+      }
+      .main-nav-link.nav-cta:link,
+      .main-nav-link.nav-cta:visited {
+        padding: 1.2rem 2.4rem;
+        border-radius: 9px;
+        background-color: #e67e22;
+        color: #fff;
+      }
+      .main-nav-link.nav-cta:hover,
+      .main-nav-link.nav-cta:active {
+        background-color: #cf711f;
+      }
+      .main-nav-link:hover,
+      .main-nav-link:active {
+        color: #cf711f;
+      }
+      .hidden {
+        display: none;
+      }
+      .icon {
+        width: 4.8rem;
+        height: 4.8rem;
+        margin-right: 1rem;
+        z-index: 999;
+        cursor: pointer;
+      }
+      .icon-close {
+        border: 4px solid #e19551c7;
+        position: absolute;
+        right: 5%;
+        top: 5%;
+      }
+      .nav-list {
+        background-color: #f9f9f8;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 95vw;
+        height: 95vh;
+        position: relative;
+      }
+      .menu-text{
+        font-weight: 600 !important;
+        font-size: 2.4rem !important;
+        cursor: pointer;
+      }
+      /* ************************* */
+      @media (max-width: 84em) {
+        html {
+          font-size: 58%;
+        }
+      }
+      @media (max-width: 75em) {
+        html {
+          font-size: 56.25%;
+        }
+      }
+      @media (max-width: 59em) {
+        html {
+          font-size: 50%;
+        }
+      }
+      @media (max-width: 800px) {
+        .main-nav-list {
+          display: none;
+        }
+        .icon-open{
+          display: block;
+        }
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img src="omnifood-logo.png" alt="omnifood-logo" class="logo" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a href="#" class="main-nav-link">How it works</a></li>
+          <li><a href="#" class="main-nav-link">Meals</a></li>
+          <li><a href="#" class="main-nav-link">Testinomial</a></li>
+          <li><a href="#" class="main-nav-link">Pricing</a></li>
+          <li><a href="#" class="main-nav-link nav-cta">Try for free</a></li>
+        </ul>
+      </nav>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="icon icon-open hidden"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+    </header>
+    <nav class="menu hidden">
+      <ul class="nav-list">
+        <li><a href="#" class="main-nav-link menu-text">How it works</a></li>
+        <li><a href="#" class="main-nav-link menu-text">Meals</a></li>
+        <li><a href="#" class="main-nav-link menu-text">Testinomial</a></li>
+        <li><a href="#" class="main-nav-link menu-text">Pricing</a></li>
+        <li><a href="#" class="main-nav-link nav-cta menu-text">Try for free</a></li>
+      </ul>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="icon icon-close"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+    </nav>
+  </body>
   <script>
     // write javascript here
+    const iconOpen = document.querySelector('.icon-open');
+    const iconClose = document.querySelector('.icon-close');
+    const header = document.querySelector('.header');
+    const menu = document.querySelector('.menu');
+    
+    iconOpen.addEventListener('click',function(){
+      header.classList.add('hidden');
+      menu.classList.remove('hidden');
+    });
+    iconClose.addEventListener('click',function(){
+      header.classList.remove('hidden');
+      menu.classList.add('hidden');
+    });
   </script>
 </html>
