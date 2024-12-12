@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      *,
+      *::after,
+      *::before {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
       body {
         font-family: sans-serif;
         width: 90vw;
@@ -40,7 +48,7 @@
       }
       .flname {
         flex-direction: row;
-        gap: 20px;
+        gap: 30px;
       }
       label {
         margin-top: 24px;
@@ -150,6 +158,31 @@
       .slider.round:before {
         border-radius: 50%;
       }
+
+      /* ************ */
+      @media (max-width: 580px) {
+        section,
+        footer,
+        header {
+          width: 400px;
+        }
+        .flname input {
+          width: 185px;
+        }
+      }
+      @media (max-width: 460px) {
+        section,
+        footer,
+        header {
+          width: 100%;
+        }
+        .flname{
+          display: block;
+        }
+        .flname input {
+          width: 100%;
+        }
+      }
     </style>
     <link
       rel="stylesheet"
@@ -180,7 +213,6 @@
         <input type="email" class="required" id="email" />
         <label for="Phone number">Phone number</label>
         <input id="phone" type="tel" name="phone" class="tel-cls required" />
-        <!-- <input id="phone" type="tel" name="phone" /> -->
         <label for="Message">Message</label>
         <textarea name="text" class="text_area required"></textarea>
       </section>
@@ -195,7 +227,6 @@
           </p>
         </div>
         <a href="#" class="btn">Let's talk</a>
-        <p id="demo"></p>
       </footer>
     </form>
   </body>
@@ -262,10 +293,10 @@
           default:
             if (flag == true) {
               alert("Your Response has been submitted successfully");
-            }else{
+            } else {
               alert("please agree to our privacy policy");
             }
-          }
+        }
       }
     });
     const phoneInputField = document.querySelector("#phone");
