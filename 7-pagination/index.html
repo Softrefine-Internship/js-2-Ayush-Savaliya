@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      /* write CSS here */
+      *,
+      *::after,
+      *::before {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
       body {
         font-family: sans-serif;
         height: 90vh;
@@ -13,93 +19,128 @@
         background-color: aliceblue;
         position: relative;
       }
+      .content {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 5rem;
+      }
       .pagination {
         position: relative;
-        left: 51%;
-        top: 90%;
+        left: 50%;
+        top: 70%;
         transform: translate(-50%, 0);
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      a {
+      a,
+      button {
         text-decoration: none;
         color: #000;
         cursor: pointer;
         border: 1px solid #333;
-        border-right: none;
-        padding: 1rem;
+        /* border-right: none; */
+        padding: 1.5rem;
       }
-      
+      .pages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      button {
+        /* background-color: aqua; */
+        padding: 1.575rem;
+      }
 
-      a:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-      a:last-child {
-        border-right: 1px solid #333;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-      }
-      
       .focus {
         color: blue;
       }
-      @media (max-width:400px) {
-        a{
-          padding: 8px;
+      .hidden {
+        color: rgb(114, 113, 113);
+        pointer-events: none;
+        cursor: no-drop;
+      }
+      @media (max-width: 580px) {
+        a {
+          padding: 1rem;
+        }
+        button {
+          padding: 1.075rem;
+          margin: 0;
+        }
+      }
+      @media (max-width: 400px) {
+        a {
+          padding: 0.5rem;
+        }
+        button {
+          padding: 0.575rem;
         }
       }
     </style>
   </head>
   <body>
+    <p class="content">Page:<span id="page-name">1</span></p>
     <div class="pagination">
-      <a class="previous">Previous</a>
-      <a href="#" class="page focus">1</a>
-      <a href="#" class="page">2</a>
-      <a href="#" class="page">3</a>
-      <a href="#" class="page">4</a>
-      <a href="#" class="page">5</a>
-      <a class="next">Next</a>
+      <button class="previous hidden">Previous</button>
+      <div class="pages"></div>
+      <button class="next">Next</button>
     </div>
   </body>
   <script>
-    // write javascript here
-    const pages = document.querySelectorAll(".page");
+    const totalPages = 19;
+    const pagesContainer = document.querySelector(".pages");
     const previous = document.querySelector(".previous");
     const next = document.querySelector(".next");
-    let i = 0;
-    const showLeft = function () {
-      
-      if (i == 0) {
-        i = 5;
-        pages[0].classList.remove("focus");
-        pages[--i].classList.add("focus");
-      } else {
-        pages[i].classList.remove("focus");
-        pages[--i].classList.add("focus");
-      }
-    };
-    const showRight = function () {
-      if (i == 4) {
-        i = 0;
-        pages[4].classList.remove("focus");
-        console.log(i);
-        pages[i].classList.add("focus");
-      } else {
-        pages[i].classList.remove("focus");
-        pages[++i].classList.add("focus");
-      }
-    };
-    previous.addEventListener("click", showLeft);
-    next.addEventListener("click", showRight);
 
-    for(let j=0;j<pages.length;j++){
-      pages[j].addEventListener('click',function(){
-        pages[j].classList.add("focus");
-        pages[i].classList.remove('focus');
-        i=Number(j);
-      });
-    }
+    let currentPage = 1;
+    let currentPageRange = 1;
+
+    const pagesPerRange = 5;
+    const totalRanges = Math.min(totalPages / pagesPerRange);
+
+    const updatePagination = function () {
+      pagesContainer.innerHTML = "";
+      const startPage = (currentPageRange - 1) * pagesPerRange + 1;
+      const endPage = Math.min(currentPageRange * pagesPerRange, totalPages);
+      for (let i = startPage; i <= endPage; i++) {
+        const pageLink = document.createElement("a");
+        pageLink.textContent = i;
+        document.getElementById("page-name").innerHTML = currentPage;
+        pageLink.classList.add("page");
+        if (i === currentPage) {
+          pageLink.classList.add("focus");
+        }
+        pageLink.addEventListener("click", () => goToPage(i));
+        pagesContainer.appendChild(pageLink);
+      }
+
+      previous.classList.toggle("hidden", currentPageRange === 1);
+      // console.log(endPage)
+      next.classList.toggle("hidden", endPage === totalPages);
+    };
+
+    const goToPage = function (pageNumber) {
+      currentPage = pageNumber;
+      updatePagination();
+    };
+
+    previous.addEventListener("click", () => {
+      if (currentPageRange > 1) {
+        currentPageRange--;
+        currentPage = (currentPageRange - 1) * pagesPerRange + 1;
+        updatePagination();
+      }
+    });
+
+    next.addEventListener("click", () => {
+      if (currentPageRange < totalRanges) {
+        currentPageRange++;
+        currentPage = (currentPageRange - 1) * pagesPerRange + 1;
+        updatePagination();
+      }
+    });
+
+    updatePagination();
   </script>
 </html>

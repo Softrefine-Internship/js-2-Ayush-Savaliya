@@ -57,24 +57,14 @@
         font-size: 14px;
         color: #495057;
       }
-      .text_area,
-      input {
-        height: 30px;
-        border-radius: 3px;
-        border: 1px solid #dee2e6;
-      }
+
       .text_area {
         height: 70px;
       }
       .flname input {
         width: 235px;
       }
-      .tel-cls {
-        height: 30px;
-        width: 100%;
-        border-radius: 3px;
-        border: 1px solid #dee2e6;
-      }
+
       .footer_div {
         font-size: 12px;
         flex-direction: row;
@@ -159,7 +149,31 @@
         border-radius: 50%;
       }
 
-      /* ************ */
+      input,
+      textarea {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 5px 10px;
+        width: 500px;
+      }
+      textarea {
+        max-width: 500px;
+      }
+      .error {
+        border-color: red;
+      }
+      .message {
+        margin-top: 6px;
+        color: red;
+        font-size: 0.8rem;
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* **** */
       @media (max-width: 580px) {
         section,
         footer,
@@ -169,18 +183,30 @@
         .flname input {
           width: 185px;
         }
+        textarea,
+        input {
+          max-width: 400px;
+        }
       }
       @media (max-width: 460px) {
         section,
         footer,
-        header {
-          width: 100%;
+        header,.flname input,
+        textarea,
+        input {
+          width: 320px;
         }
-        .flname{
+        .flname {
           display: block;
         }
-        .flname input {
-          width: 100%;
+      }
+      @media (max-width: 400px) {
+        section,
+        footer,
+        header,.flname input,
+        textarea,
+        input {
+          width: 270px;
         }
       }
     </style>
@@ -191,6 +217,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
   </head>
   <body>
+    <div class="blur-clr blur-clr--pink"></div>
+    <div class="blur-clr blur-clr--blue"></div>
     <header>
       <h1>Contact sales</h1>
       <span>Aute magna irure deserunt veniam aliqua magna enim voluptate.</span>
@@ -201,20 +229,26 @@
           <div class="flex_">
             <label for="First name">First name</label>
             <input type="text" class="required" />
+            <p class="message hidden">Enter first name</p>
           </div>
           <div class="flex_">
             <label for="Last name">Last name</label>
             <input type="text" class="required" />
+            <p class="message hidden">Enter last name</p>
           </div>
         </div>
         <label for="Company">Company</label>
         <input type="text" class="required" />
+        <p class="message hidden">Enter company name</p>
         <label for="Email">Email</label>
         <input type="email" class="required" id="email" />
+        <p class="message hidden">Enter email id</p>
         <label for="Phone number">Phone number</label>
-        <input id="phone" type="tel" name="phone" class="tel-cls required" />
+        <input id="phone" type="tel" name="phone" class="required" maxlength="10" placeholder="123-1234-123" />
+        <p class="message hidden">Enter phone number</p>
         <label for="Message">Message</label>
         <textarea name="text" class="text_area required"></textarea>
+        <p class="message hidden">Write Message</p>
       </section>
       <footer>
         <div class="flex_ footer_div">
@@ -232,6 +266,7 @@
   </body>
   <script>
     // write javascript here
+
     let flag = false;
     document.querySelector(".checkbox").addEventListener("click", function () {
       flag = flag === false ? true : false;
@@ -240,65 +275,89 @@
     let inputValue = document.querySelectorAll(".required");
     document.querySelector(".btn").addEventListener("click", function () {
       const patternEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-      const patternPhoneNo = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+      const patternPhoneNo = /^[+][(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]$/g;
 
       for (let i = 0; i < inputValue.length; i++) {
         let a = inputValue[i].value;
+
         switch (i) {
           case 0:
             if (a == "") {
-              alert(`Fill first name field`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             }
             break;
           case 1:
             if (a == "") {
-              alert(`Fill last name field`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             }
             break;
           case 2:
             if (a == "") {
-              alert(`write company name`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             }
             break;
           case 3:
             if (a == "") {
-              alert(`Fill email address`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             } else {
               if (!a.match(patternEmail)) {
-                alert("invalid email");
+                inputValue[i].classList.add("error");
+                messages[i].classList.remove("hidden");
                 exit;
               }
             }
             break;
           case 4:
             if (a == "") {
-              alert(`Fill number field`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             } else {
               if (!/^\d{10}$/.test(a)) {
-                alert("invalid phone no.");
+                inputValue[i].classList.add("error");
+                messages[i].classList.remove("hidden");
                 exit;
               }
             }
             break;
           case 5:
             if (a == "") {
-              alert(`please enter message`);
+              inputValue[i].classList.add("error");
+              messages[i].classList.remove("hidden");
               exit;
             }
           default:
             if (flag == true) {
-              alert("Your Response has been submitted successfully");
+              alert("Your Response has been submitted!");
             } else {
-              alert("please agree to our privacy policy");
+              alert("Please agree to privacy policy");
             }
         }
       }
     });
+
+    let messages = document.querySelectorAll(".message");
+    for (let i = 0; i < inputValue.length; i++) {
+      const inputField = inputValue[i];
+      inputField.addEventListener("input", function () {
+        if (inputField.value == "") {
+          inputField.classList.add("error");
+          messages[i].classList.remove("hidden");
+        } else {
+          messages[i].classList.add("hidden");
+          inputField.classList.remove("error");
+        }
+      });
+    }
+
     const phoneInputField = document.querySelector("#phone");
     const phoneInput = window.intlTelInput(phoneInputField, {
       utilsScript:

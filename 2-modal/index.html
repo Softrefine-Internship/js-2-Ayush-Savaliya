@@ -6,6 +6,13 @@
     <title>Document</title>
     <style>
       /* write CSS here */
+      *,
+      *::after,
+      *::before {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
       html {
         font-size: 62.5%;
       }
@@ -51,11 +58,10 @@
 
       p {
         font-size: 1.8rem;
+        padding-right: 2.2rem;
         color: #6e7582;
       }
 
-      /* -------------------------- */
-      /* CLASSES TO MAKE MODAL WORK */
       .hidden {
         display: none;
       }
@@ -82,13 +88,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 99vw;
-        height: 98vh;
-        background-color: #b6c6e6;
-        filter: blur(8px);
-        -webkit-filter: blur(8px);
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
+        width: 100vw;
+        height: 100vh;
+        background-color: #b6c6e675;
+        filter: blur(2px);
+        -webkit-filter: blur(2px);
+        backdrop-filter: blur(1px); 
+        -webkit-backdrop-filter: blur(1px);
         z-index: 5;
       }
       .svg-icon {
@@ -102,7 +108,7 @@
         cursor: pointer;
       }
       .btn-red {
-        color: #ddd;
+        color: #fff;
         background-color: #da1818;
         border-color: #fff;
       }
@@ -116,12 +122,13 @@
         margin-top: 2rem;
       }
       .icon {
-        width: 2rem;
-        height: 2rem;
+        width: 4rem;
+        height: 4rem;
         background-color: #da18183c;
-        padding: 1.2rem;
+        padding: 1rem;
         border-radius: 50%;
         margin-top: 1.2rem;
+        stroke: #da1818;
       }
       /* ************ */
       @media (max-width: 950px) {
@@ -162,8 +169,8 @@
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="red"
+            stroke-width="1.5"
+            stroke="currentColor"
             class="icon"
           >
             <path
