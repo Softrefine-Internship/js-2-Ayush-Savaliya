@@ -39,8 +39,7 @@
         color: #000;
         cursor: pointer;
         border: 1px solid #333;
-        /* border-right: none; */
-        padding: 1.5rem;
+        padding: 1rem;
       }
       .pages {
         display: flex;
@@ -48,10 +47,8 @@
         align-items: center;
       }
       button {
-        /* background-color: aqua; */
-        padding: 1.575rem;
+        padding: 1.075rem;
       }
-
       .focus {
         color: blue;
       }
@@ -88,36 +85,60 @@
     </div>
   </body>
   <script>
-    const totalPages = 19;
+    const totalPages = 10;
     const pagesContainer = document.querySelector(".pages");
     const previous = document.querySelector(".previous");
     const next = document.querySelector(".next");
 
     let currentPage = 1;
-    let currentPageRange = 1;
 
-    const pagesPerRange = 5;
-    const totalRanges = Math.min(totalPages / pagesPerRange);
+    const pagesPerRange = 3;
 
     const updatePagination = function () {
       pagesContainer.innerHTML = "";
-      const startPage = (currentPageRange - 1) * pagesPerRange + 1;
-      const endPage = Math.min(currentPageRange * pagesPerRange, totalPages);
-      for (let i = startPage; i <= endPage; i++) {
-        const pageLink = document.createElement("a");
-        pageLink.textContent = i;
-        document.getElementById("page-name").innerHTML = currentPage;
-        pageLink.classList.add("page");
-        if (i === currentPage) {
-          pageLink.classList.add("focus");
-        }
-        pageLink.addEventListener("click", () => goToPage(i));
-        pagesContainer.appendChild(pageLink);
+
+      const pagesToDisplay = [];
+      const halfRange = Math.floor(pagesPerRange / 2);
+      
+      let startPage = Math.max(1, currentPage - halfRange);
+      let endPage = Math.min(totalPages, currentPage + halfRange);
+      
+      if (startPage === 1) {
+        endPage = Math.min(totalPages, startPage + pagesPerRange - 1);
+      }
+      if (endPage === totalPages) {
+        startPage = Math.max(1, endPage - pagesPerRange + 1);
       }
 
-      previous.classList.toggle("hidden", currentPageRange === 1);
-      // console.log(endPage)
-      next.classList.toggle("hidden", endPage === totalPages);
+      if (startPage > 1) pagesToDisplay.push(1);
+      for (let i = startPage; i <= endPage; i++) {
+        pagesToDisplay.push(i);
+      }
+      if (endPage < totalPages) pagesToDisplay.push(totalPages);
+
+      for (let i = 0; i < pagesToDisplay.length; i++) {
+        const page = pagesToDisplay[i];
+        const pageLink = document.createElement("a");
+        pageLink.textContent = page;
+
+        if (page === currentPage) {
+          pageLink.classList.add("focus");
+        }
+
+        pageLink.addEventListener("click", () => goToPage(page));
+        pagesContainer.appendChild(pageLink);
+
+        if (i < pagesToDisplay.length - 1 && pagesToDisplay[i + 1] !== pagesToDisplay[i] + 1) {
+          const ellipsis = document.createElement("span");
+          ellipsis.textContent = "...";
+          pagesContainer.appendChild(ellipsis);
+        }
+      }
+
+      document.getElementById("page-name").innerHTML = currentPage;
+
+      previous.classList.toggle("hidden", currentPage === 1);
+      next.classList.toggle("hidden", currentPage === totalPages);
     };
 
     const goToPage = function (pageNumber) {
@@ -126,17 +147,15 @@
     };
 
     previous.addEventListener("click", () => {
-      if (currentPageRange > 1) {
-        currentPageRange--;
-        currentPage = (currentPageRange - 1) * pagesPerRange + 1;
+      if (currentPage > 1) {
+        currentPage--;
         updatePagination();
       }
     });
 
     next.addEventListener("click", () => {
-      if (currentPageRange < totalRanges) {
-        currentPageRange++;
-        currentPage = (currentPageRange - 1) * pagesPerRange + 1;
+      if (currentPage < totalPages) {
+        currentPage++;
         updatePagination();
       }
     });

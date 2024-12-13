@@ -191,9 +191,12 @@
       @media (max-width: 460px) {
         section,
         footer,
-        header,.flname input,
+        header,
         textarea,
         input {
+          max-width: 320px;
+        }
+        .flname input{
           width: 320px;
         }
         .flname {
@@ -206,7 +209,7 @@
         header,.flname input,
         textarea,
         input {
-          width: 270px;
+          max-width: 270px;
         }
       }
     </style>
@@ -285,28 +288,28 @@
             if (a == "") {
               inputValue[i].classList.add("error");
               messages[i].classList.remove("hidden");
-              exit;
+              // exit;
             }
             break;
           case 1:
             if (a == "") {
               inputValue[i].classList.add("error");
               messages[i].classList.remove("hidden");
-              exit;
+              // exit;
             }
             break;
           case 2:
             if (a == "") {
               inputValue[i].classList.add("error");
               messages[i].classList.remove("hidden");
-              exit;
+              // exit;
             }
             break;
           case 3:
             if (a == "") {
               inputValue[i].classList.add("error");
               messages[i].classList.remove("hidden");
-              exit;
+              // exit;
             } else {
               if (!a.match(patternEmail)) {
                 inputValue[i].classList.add("error");
@@ -319,7 +322,7 @@
             if (a == "") {
               inputValue[i].classList.add("error");
               messages[i].classList.remove("hidden");
-              exit;
+              // exit;
             } else {
               if (!/^\d{10}$/.test(a)) {
                 inputValue[i].classList.add("error");
